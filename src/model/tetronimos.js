@@ -110,19 +110,6 @@ export class Tetronimos{
                 return true;
             }
         }
-           
-        this.draw = function(context) {
-            // Prerequisite: rotation is possible
-            // Draw the tetronimos to the canvas
-            for (let i = 0; i < this.repArray.length; i++) {
-                for (let j = 0; j < this.repArray[i].length; j++) {
-                    if (this.repArray[i][j] === 1) {
-                        context.fillStyle = this.color;
-                        context.fillRect(this.x + j * CELL_SIZE, this.y + i * CELL_SIZE, CELL_SIZE, CELL_SIZE);
-                    }
-                }
-            } 
-        }
     }   
 
 }
