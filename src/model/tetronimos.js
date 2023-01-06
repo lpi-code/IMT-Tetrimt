@@ -5,10 +5,15 @@ export class Tetronimos{
         this.x = x;
         this.y = y;
         this.color = color;
-        this.repArray = array;
+        this.repArray = array; // A grid of 0 and 1
 
         this.getColorGrid = function() {
             // Return a grid with the color of the tetronimos
+            // WARNING : It is not 0 and 1
+            // [
+            //    [0,       FFFFF, 0]
+            //    [FFFFFF,  FFFFF, FFFFFF] 
+            // ]
             let grid = [];
             for (let i = 0; i < this.repArray.length; i++) {
                 let row = [];
@@ -28,7 +33,7 @@ export class Tetronimos{
             // Check if the tetronimos can fall
             for (let i = 0; i < this.repArray.length; i++) {
                 for (let j = 0; j < this.repArray[i].length; j++) {
-                    if (this.repArray[i][j] === 1 && grid[this.x + j][this.y + i + 1] === 1) {
+                    if (this.repArray[i][j] === 1 && grid[this.x + j][this.y + i + 1] != 0) {
                         return false;
                     }
                 }
@@ -88,7 +93,24 @@ export class Tetronimos{
             }
             this.repArray = newArray;
         }
-        
+
+        this.popRow = function(row) {
+            // Rox represent a row in the grid (not the tetronimos)
+            // Remove a row from the tetronimos if needed
+            // => return true if the tetronimos is now empty
+            
+            if (row < this.y || row >= this.y + this.repArray.length) {
+                return false;
+            }
+            let newArray = [];
+            let rowToRemove = row - this.y;
+            this.repArray.pop(rowToRemove);
+            this.repArray = newArray;
+            if (newArray.length === 0) {
+                return true;
+            }
+        }
+           
         this.draw = function(context) {
             // Prerequisite: rotation is possible
             // Draw the tetronimos to the canvas
@@ -104,4 +126,3 @@ export class Tetronimos{
     }   
 
 }
-    
