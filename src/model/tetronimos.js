@@ -1,6 +1,7 @@
 // This file contains data structure of game element
 import {CELL_SIZE} from './settings.js';
-export class Tetronimos{
+
+class Tetronimos{
     constructor(array = [], color = 'green', x = 0, y = 0) {
         this.x = x;
         this.y = y;
@@ -112,4 +113,56 @@ export class Tetronimos{
         }
     }   
 
+}
+
+export class TetronimoI extends Tetronimos {
+    constructor(x, y) {
+        super([[1,1,1,1]], 'cyan', x, y);
+    }
+}
+
+export class TetrominoSquare extends Tetronimos {
+    constructor(x, y) {
+        super([[1,1],[1,1]], 'yellow', x, y);
+    }
+}
+
+export class TetrominoT extends Tetronimos {
+    constructor(x, y) {
+        super([[1,1,1],[0,1,0]], 'purple', x, y);
+    }
+}
+
+export class TetrominoL extends Tetronimos {
+    constructor(x, y) {
+        super([[1,1,1],[1,0,0]], 'orange', x, y);
+    }
+}
+
+export class TetrominoJ extends Tetronimos {
+    constructor(x, y) {
+        super([[1,1,1],[0,0,1]], 'blue', x, y);
+    }
+}
+
+export class TetrominoS extends Tetronimos {
+    constructor(x, y) {
+        super([[0,1,1],[1,1,0]], 'green', x, y);
+    }
+}
+
+export class TetrominoZ extends Tetronimos {
+    constructor(x, y) {
+        super([[1,1,0],[0,1,1]], 'red', x, y);
+    }
+}
+
+getRandomTetronimos = function() {
+    // Return a new random tetronimos
+    let tetronimos = [TetronimoI, TetrominoSquare, TetrominoT, TetrominoL, TetrominoJ, TetrominoS, TetrominoZ];
+    let rand = Math.floor(Math.random() * tetronimos.length);
+    // Center the tetronimos
+    let x = Math.floor(GRID_WIDTH / 2) - 1;
+    let y = 0;
+    return new tetronimos[rand](x, y);
 }
