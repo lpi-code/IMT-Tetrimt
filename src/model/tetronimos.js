@@ -1,11 +1,72 @@
 // This file contains data structure of game element
 import {CELL_SIZE} from './settings.js';
-class Tetronimos{
+export class Tetronimos{
     constructor(array = [], color = 'green', x = 0, y = 0) {
         this.x = x;
         this.y = y;
         this.color = color;
         this.repArray = array;
+
+        this.getColorGrid = function() {
+            // Return a grid with the color of the tetronimos
+            let grid = [];
+            for (let i = 0; i < this.repArray.length; i++) {
+                let row = [];
+                for (let j = 0; j < this.repArray[i].length; j++) {
+                    if (this.repArray[i][j] === 1) {
+                        row.push(this.color);
+                    } else {
+                        row.push(0);
+                    }
+                }
+                grid.push(row);
+            }
+            return grid;
+        }
+
+        this.isFallPossible = function(grid) {
+            // Check if the tetronimos can fall
+            for (let i = 0; i < this.repArray.length; i++) {
+                for (let j = 0; j < this.repArray[i].length; j++) {
+                    if (this.repArray[i][j] === 1 && grid[this.x + j][this.y + i + 1] === 1) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        this.move = function(grid, direction) {
+            // Move the tetronimos to the left or right or down
+            // Raise error if movement is not possible
+            let newX = this.x;
+            let newY = this.y;
+            if (direction === 'left') {
+                newX -= 1;
+            } else if (direction === 'right') {
+                newX += 1;
+            } else if (direction === 'down') {
+                newY += 1;
+            } else {
+                throw new Error('Invalid direction');
+            }
+            for (let i = 0; i < this.repArray.length; i++) {
+                for (let j = 0; j < this.repArray[i].length; j++) {
+                    // Collision check
+                    if (this.repArray[i][j] === 1 && grid[newX + j][newY + i] === 1) {
+                        throw new Error('Movement not possible : collision');
+                    }
+
+                    // Out of bound check
+                    if (newX + j < 0 || newX + j >= GRID_WIDTH || newY + i < 0 || newY + i >= GRID_HEIGHT) {
+                        throw new Error('Movement not possible : out of bound');
+                    }
+                }
+            }
+            this.x = newX;
+            this.y = newY;
+        }
+
         this.rotate90 = function(grid, nbRot = 1) {
             // Rotate 90 clockwise
             // Raise error if rotation is not possible
@@ -14,12 +75,20 @@ class Tetronimos{
             }
             for (let i = 0; i < newArray.length; i++) {
                 for (let j = 0; j < newArray[i].length; j++) {
+                    // Collision check
                     if (newArray[i][j] === 1 && grid[this.x + j][this.y + i] === 1) {
-                        throw new Error('Rotation not possible');
+                        throw new Error('Rotation not possible : collision');
+                    }
+
+                    // Out of bound check
+                    if (this.x + j < 0 || this.x + j >= GRID_WIDTH || this.y + i < 0 || this.y + i >= GRID_HEIGHT) {
+                        throw new Error('Rotation not possible : out of bound');
                     }
                 }
             }
+            this.repArray = newArray;
         }
+        
         this.draw = function(context) {
             // Prerequisite: rotation is possible
             // Draw the tetronimos to the canvas
@@ -31,17 +100,6 @@ class Tetronimos{
                     }
                 }
             } 
-        }
-        this.isFallPossible = function(grid) {
-            // Check if the tetronimos can fall
-            for (let i = 0; i < this.repArray.length; i++) {
-                for (let j = 0; j < this.repArray[i].length; j++) {
-                    if (this.repArray[i][j] === 1 && grid[this.x + j][this.y + i + 1] === 1) {
-                        return false;
-                    }
-                }
-            }
-            return true;
         }
     }   
 
