@@ -30,7 +30,7 @@ class Tetronimos{
         return grid;
     }
 
-    isFallPossible(grid) {
+    isMoveDownPossible(grid) {
         // Check if the tetronimos can fall
         for (let i = 0; i < this.repArray.length; i++) {
             for (let j = 0; j < this.repArray[i].length; j++) {
@@ -72,6 +72,16 @@ class Tetronimos{
         this.x = newX;
         this.y = newY;
     }
+
+    fall(grid, direction) {
+        // Fall the tetronimos to the bottom
+        // Raise error if movement is not possible
+        let newY = this.y;
+        while (this.isMoveDownPossible(grid)) {
+            newY += 1;
+        }
+    }
+
 
     rotate90(grid, nbRot = 1) {
         // Rotate 90 clockwise
