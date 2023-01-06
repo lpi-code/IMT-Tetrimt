@@ -32,6 +32,17 @@ class Tetronimos{
                 }
             } 
         }
+        this.isFallPossible = function(grid) {
+            // Check if the tetronimos can fall
+            for (let i = 0; i < this.repArray.length; i++) {
+                for (let j = 0; j < this.repArray[i].length; j++) {
+                    if (this.repArray[i][j] === 1 && grid[this.x + j][this.y + i + 1] === 1) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }   
 
 }

@@ -1,3 +1,4 @@
 export const CELL_SIZE = 20;
-export const CELL_COUNT_X = 10;
-export const CELL_COUNT_Y = 24;
+export const GRID_WIDTH = 10;
+export const GRID_HEIGHT = 24;
+export const INITIAL_DROP_DELAY = 3; // in seconds
