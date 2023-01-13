@@ -170,12 +170,3 @@ export class TetrominoZ extends Tetronimos {
     }
 }
 
-getRandomTetronimos = function() {
-    // Return a new random tetronimos
-    let tetronimos = [TetronimoI, TetrominoSquare, TetrominoT, TetrominoL, TetrominoJ, TetrominoS, TetrominoZ];
-    let rand = Math.floor(Math.random() * tetronimos.length);
-    // Center the tetronimos
-    let x = Math.floor(GRID_WIDTH / 2) - 1;
-    let y = 0;
-    return new tetronimos[rand](x, y);
-}
