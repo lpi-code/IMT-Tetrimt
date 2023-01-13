@@ -169,4 +169,3 @@ export class TetrominoZ extends Tetronimos {
         super([[1,1,0],[0,1,1]], 'red', x, y);
     }
 }
-
