@@ -44,6 +44,7 @@ export class TetrisModel extends Object {
     }
 
     fall(){
+        // move down once
         this.#currentTetrominos.fall();
         if (!this.#currentTetrominos.isMoveDownPossible(this.#mainGrid)){
             this.hitTheFloor();

@@ -73,7 +73,12 @@ class Tetronimos{
         this.y = newY;
     }
 
-    fall(grid, direction) {
+    fall(grid){
+        // move down once
+        this.move(grid, "down")
+    }
+
+    falafel(grid) {
         // Fall the tetronimos to the bottom
         // Raise error if movement is not possible
         let newY = this.y;
