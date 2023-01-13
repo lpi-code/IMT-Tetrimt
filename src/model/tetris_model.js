@@ -105,21 +105,29 @@ export class TetrisModel extends Object {
     }
 
     moveLeft(){
-        this.#currentTetrominos.moveLeft();
-        if (!this.#currentTetrominos.isMoveLeftPossible(this.#mainGrid)){
-            this.#currentTetrominos.moveRight();
+        try{
+            this.#currentTetrominos.move(
+                this.#mainGrid,
+                "left"
+            )
+        }catch(e){
+            console.log(e);
         }
     }
 
     moveRight(){
-        this.#currentTetrominos.moveRight();
-        if (!this.#currentTetrominos.isMoveRightPossible(this.#mainGrid)){
-            this.#currentTetrominos.moveLeft();
+        try{
+            this.#currentTetrominos.move(
+                this.#mainGrid,
+                "right"
+            )
+        }catch(e){
+            console.log(e);
         }
     }
 
     rotateClockwise(){
-        this.#currentTetrominos.rotateClockwise();
+        this.#currentTetrominos.rotateClockwise(this.#mainGrid);
     }
 
 }
