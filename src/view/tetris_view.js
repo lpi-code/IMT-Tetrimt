@@ -1,4 +1,4 @@
-import { CELL_SIZE } from "../model/settings";
+import { CELL_SIZE } from "../model/settings.js";
 
 
 

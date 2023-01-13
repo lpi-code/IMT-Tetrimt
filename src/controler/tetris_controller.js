@@ -79,6 +79,10 @@ export class TetrisController extends Object {
         });
     }
 
+    refreshGrid(){
+        this.#mainView.drawGrid(this.#mainModel.getShowableGrid());
+    }
+
     
 
 }

@@ -1,5 +1,5 @@
 
-import {CELL_COUNT_X, CELL_COUNT_Y} from '/settings.js';
+import {CELL_COUNT_X, CELL_COUNT_Y} from './settings.js';
 
 export class TetrisModel extends Object {
 
@@ -140,6 +140,21 @@ export class TetrisModel extends Object {
         let y = 0;
         return new tetronimos[rand](x, y);
     }
+
+    getShowableGrid(){
+        // Return the grid with the current tetrominos
+        let grid = this.#mainGrid;
+        const width = this.#currentTetrominos.repArray.length;
+        const height = this.#currentTetrominos.repArray[0].length;
+
+        for (let i = 0; i < width; i++) {
+            for (let j = 0; j < height; j++) {
+              if (this.#currentTetrominos.repArray[i+this.#currentTetrominos.x][j+this.#currentTetrominos.y] != 0)
+                grid[i+this.#currentTetrominos.x][j + this.#currentTetrominos.y] = this.#currentTetrominos.repArray[i][j];
+            }
+        } 
+        return grid;
+    }
     
 
-}
+}   
