@@ -128,7 +128,7 @@ class Tetronimos{
     }
 }   
 
-export class TetronimoI extends Tetronimos {
+export class TetrominoI extends Tetronimos {
     constructor(x, y) {
         super([[1,1,1,1]], 'cyan', x, y);
     }

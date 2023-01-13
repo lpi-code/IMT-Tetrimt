@@ -1,5 +1,16 @@
 
 import {GRID_WIDTH, GRID_HEIGHT} from './settings.js';
+import {
+    TetrominoI,
+    TetrominoSquare,
+    TetrominoT,
+    TetrominoL,
+    TetrominoJ,
+    TetrominoS,
+    TetrominoZ
+
+
+} from './tetronimos.js';
 
 export class TetrisModel extends Object {
 
@@ -133,7 +144,7 @@ export class TetrisModel extends Object {
 
     getRandomTetronimos() {
         // Return a new random tetronimos
-        let tetronimos = [TetronimoI, TetrominoSquare, TetrominoT, TetrominoL, TetrominoJ, TetrominoS, TetrominoZ];
+        let tetronimos = [TetrominoI, TetrominoSquare, TetrominoT, TetrominoL, TetrominoJ, TetrominoS, TetrominoZ];
         let rand = Math.floor(Math.random() * tetronimos.length);
         // Center the tetronimos
         let x = Math.floor(GRID_WIDTH / 2) - 1;
