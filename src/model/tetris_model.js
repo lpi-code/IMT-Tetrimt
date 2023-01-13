@@ -1,5 +1,5 @@
 
-import {CELL_COUNT_X, CELL_COUNT_Y} from '/settings.js';
+import {GRID_WIDTH, GRID_HEIGHT} from './settings.js';
 
 export class TetrisModel extends Object {
 
@@ -30,7 +30,7 @@ export class TetrisModel extends Object {
         this.loadNextTetrominos();
         completeLines = [];
         scoreMultiplier = 1;
-        for (let i = 0; i < CELL_COUNT_Y; i++) {
+        for (let i = 0; i < GRID_HEIGHT; i++) {
             if (this.isLineCompleted(i)){
                 this.deleteLine(i);
                 completeLines++;
@@ -77,8 +77,8 @@ export class TetrisModel extends Object {
     loadMainGrid()
     {
         this.#mainGrid = new Array();
-        for (let i = 0; i < CELL_COUNT_X; i++) {
-            for (let j = 0; j < CELL_COUNT_Y; j++) {
+        for (let i = 0; i < GRID_WIDTH; i++) {
+            for (let j = 0; j < GRID_HEIGHT; j++) {
               if (!this.#mainGrid[i]) this.#mainGrid[i] = new Array(); 
               this.#mainGrid[i][j] = 0;
             }
@@ -102,7 +102,7 @@ export class TetrisModel extends Object {
 
     deleteLine(y){
         this.#mainGrid.splice(y, 1); // Delete the line
-        this.#mainGrid.unshift(new Array(CELL_COUNT_X).fill(0)); // Add a new line at the top
+        this.#mainGrid.unshift(new Array(GRID_WIDTH).fill(0)); // Add a new line at the top
     }
 
     moveLeft(){
