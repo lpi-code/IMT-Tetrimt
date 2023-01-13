@@ -1,11 +1,18 @@
+import { TetrisModel } from "./../model/tetris_model.js";
+import { TetrisView } from "./../view/tetris_view.js";
 
-export class UserController extends Object {
+export class TetrisController extends Object {
 
+    #mainView;
+    #mainModel;
     #userLaunchGame = false;
     #musicEnabled = false;
 
     constructor() {
         super();
+        this.#mainModel = new TetrisModel();
+        this.#mainView = new TetrisView();
+
         this.startGame();
         this.enableMusic();
     }
@@ -15,17 +22,22 @@ export class UserController extends Object {
     detectArrowKeyInput()
     {
         document.addEventListener('keydown', ev  => {
+            if (this.#userLaunchGame == false) return;
             switch(ev.key){
                 case "ArrowLeft":
+                    this.#mainModel.moveLeft();
                     console.log("Left Key is pressed, this should activate move the piece to the left (-1 in x)");
                     break;
                 case "ArrowUp":
+                    this.#mainModel.rotateClockwise();
                     console.log("Up Key is pressed, this should activate the rotation");
                     break;
                 case "ArrowRight":
+                    this.#mainModel.moveLeft();
                     console.log("Right Key is pressed, this should activate move the piece to the right (+1 in x)");
                     break;
                 case "ArrowDown":
+                    this.#mainModel.falafel();
                     console.log("Down Key is pressed, this should accelerate the fall of the tetrominos");
                     break;
                 default:

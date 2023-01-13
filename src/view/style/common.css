@@ -3,3 +3,65 @@
     margin: 0;
     padding: 0;
 }
+
+section
+{
+    background-color: lightgray;
+    padding: 2em;
+    border-radius: 1% / 1%;
+    width: min(80vh, 100em);
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    aspect-ratio: 1;
+}
+
+button
+{
+    width: 8em;
+    margin: 1em auto;
+}
+
+
+
+section > h1
+{
+    width: 100%;
+    text-align: center;
+}
+
+#game
+{
+    display: flex;
+    width: 100%;
+}
+
+.column
+{
+    display: flex;
+    flex-direction: column;
+}
+
+#column-one
+{
+    width: 60%;
+}
+
+#column-two
+{
+    width: 40%;
+}
+
+#score-container
+{
+    background-color: white;
+    border: solid 0.1em darkgray;
+    border-radius: 1%;
+    width: 40%;
+    margin: 0 auto;
+}
+
+#score
+{
+    text-align: center;
+}

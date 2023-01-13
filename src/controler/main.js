@@ -1,5 +1,5 @@
 //Also temp over here
-import { UserController } from "./user_controller.js";
+import { TetrisController } from "./tetris_controller.js";
 
 
-new UserController();
+new TetrisController();

@@ -19,13 +19,22 @@
         </header>
         <section>
             <h1>TetrIMT</h1>
-
-            <canvas id="tetris-grid"></canvas>
-            <canvas id="next-piece"></canvas>
-            <div id="score-container"><div id="score"></div></div>
-            <button id="manage-sound">Sound</button>
-            <button id="start">Play</button>
-            <button id="reset">Reset</button>
+            <div id="game">
+                <div class="column" id="column-one">
+                    <canvas id="tetris-grid"></canvas>
+                    <button id="start">Play</button>
+                    <button id="reset">Reset</button>
+                </div>
+                <div class="column" id="column-two">
+                    <div id="score-container"><div id="score">0</div></div>
+                    <canvas id="next-piece"></canvas>
+                    <button id="manage-sound">Sound</button>
+                </div>
+            </div>
+            
+            
+            
+            
         </section>
         <footer>
 
