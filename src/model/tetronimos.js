@@ -83,7 +83,7 @@ class Tetronimos{
     }
 
 
-    rotate90(grid, nbRot = 1) {
+    rotateClockwise(grid, nbRot = 1) {
         // Rotate 90 clockwise
         // Raise error if rotation is not possible
         for (let i = 0; i < nbRot; i++) {
