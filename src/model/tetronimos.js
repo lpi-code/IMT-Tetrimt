@@ -94,9 +94,6 @@ class Tetronimos{
     rotateClockwise(grid, nbRot = 1) {
         // Rotate 90 clockwise
         // Raise error if rotation is not possible
-
-        //Temporary until the bug of infinite loop is resolved
-        return;
         let newArray;
         for (let i = 0; i < nbRot; i++) {
              newArray = this.repArray[0].map((val, index) => this.repArray.map(row => row[index]).reverse());
