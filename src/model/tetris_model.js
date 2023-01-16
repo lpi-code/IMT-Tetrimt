@@ -37,6 +37,11 @@ export class TetrisModel extends Object {
         this.#nextTetrominos = this.getRandomTetronimos();
     }
 
+    resetComponents()
+    {
+       this.loadComponents();
+    }
+
     //Executed when the current tetrominos has reached the "ground" 
     hitTheFloor()
     {
