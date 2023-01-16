@@ -77,8 +77,14 @@ export class TetrisController extends Object {
     {
         document.querySelector("#manage-sound").addEventListener("click", (e) => {
             this.#musicEnabled = ! this.#musicEnabled;
-            if(this.#musicEnabled) console.log("Music enable !");
-            else console.log("Music disable =(")
+            if(this.#musicEnabled){
+                console.log("Music enable !");
+                document.querySelector("#audio").play();
+            }
+            else {
+                console.log("Music disable =(")
+                document.querySelector("#audio").pause();
+            }
         });
         
     }

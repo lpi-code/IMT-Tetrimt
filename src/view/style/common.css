@@ -22,6 +22,10 @@ button
     margin: 1em auto;
 }
 
+audio{
+    display: none;
+}
+
 
 section > h1
 {
