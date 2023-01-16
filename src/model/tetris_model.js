@@ -19,19 +19,25 @@ export class TetrisModel extends Object {
     #nextTetrominos;
     #currentTetrominos;
     #score;
-    
+    #gridCallback;
 
-    constructor() {
+    constructor(gridCallback) {
         super();
-        this.initMainGrid();
+        this.#gridCallback = gridCallback;
         this.initSmallGrid();
+        this.initMainGrid();
+    }
+
+    init(){
+
+        this.#gridCallback();
+        this.score = 0;
     }
 
 
     //Initial load of the Tetris Model
     initGame(){
-        this.initMainGrid();
-        this.initSmallGrid();
+        this.init();
         this.#currentTetrominos = this.getRandomTetronimos();
         this.#nextTetrominos = this.getRandomTetronimos();
     }
@@ -42,6 +48,7 @@ export class TetrisModel extends Object {
         this.initMainGrid();
         this.initSmallGrid();
         this.#score = 0;
+        this.#gridCallback();
     }
 
     //Executed when the current tetrominos has reached the "ground" 
@@ -70,6 +77,7 @@ export class TetrisModel extends Object {
         if (!this.#currentTetrominos.isMoveDownPossible(this.#mainGrid)){
             this.hitTheFloor();
         }
+        this.#gridCallback();
     }
 
     //Update value of the main grid
@@ -87,6 +95,7 @@ export class TetrisModel extends Object {
                 this.#mainGrid[i+this.#currentTetrominos.x][j + this.#currentTetrominos.y] = cell;
             }
         } 
+        this.#gridCallback();
     }
 
     initMainGrid()
@@ -129,6 +138,7 @@ export class TetrisModel extends Object {
     deleteLine(y){
         this.#mainGrid.splice(y, 1); // Delete the line
         this.#mainGrid.unshift(new Array(GRID_WIDTH).fill(0)); // Add a new line at the top
+        this.#gridCallback();
     }
 
     moveLeft(){
@@ -137,6 +147,7 @@ export class TetrisModel extends Object {
                 this.#mainGrid,
                 "left"
             )
+            this.#gridCallback();
         }catch(e){
             console.log(e);
         }
@@ -148,6 +159,7 @@ export class TetrisModel extends Object {
                 this.#mainGrid,
                 "right"
             )
+            this.#gridCallback();
         }catch(e){
             console.log(e);
         }
@@ -155,10 +167,12 @@ export class TetrisModel extends Object {
 
     rotateClockwise(){
         this.#currentTetrominos.rotateClockwise(this.#mainGrid);
+        this.#gridCallback();
     }
 
     falafel(){
         this.#currentTetrominos.falafel(this.#mainGrid);
+        this.#gridCallback();
     }
 
     getRandomTetronimos() {

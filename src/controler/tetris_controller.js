@@ -10,9 +10,8 @@ export class TetrisController extends Object {
 
     constructor() {
         super();
-        this.#mainModel = new TetrisModel();
         this.#mainView = new TetrisView();
-        this.drawGrids();
+        this.#mainModel = new TetrisModel(this.drawGrids.bind(this));
 
 
         this.startGame();
@@ -33,18 +32,14 @@ export class TetrisController extends Object {
             switch(ev.key){
                 case "ArrowLeft":
                     this.#mainModel.moveLeft();
-                    this.drawGrids();
                     break;
                 case "ArrowUp":
                     this.#mainModel.rotateClockwise();
-                    this.drawGrids();
                     break;
                 case "ArrowRight":
                     this.#mainModel.moveRight();
-                    this.drawGrids();
                     break;
                 case "ArrowDown":
-                    this.drawGrids();
                     this.#mainModel.falafel();
                     break;
                 default:
@@ -63,7 +58,6 @@ export class TetrisController extends Object {
             this.detectArrowKeyInput();
             this.reset();
             this.#mainModel.initGame();
-            this.drawGrids();
         });
         
     }
@@ -87,7 +81,6 @@ export class TetrisController extends Object {
         document.querySelector("#reset").addEventListener("click", (e) => {
             if (this.#userLaunchGame == false) return;
             this.#mainModel.resetGame();
-            this.drawGrids();
             this.#userLaunchGame = false;
         });
     }
