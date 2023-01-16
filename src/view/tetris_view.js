@@ -22,6 +22,8 @@ export class TetrisView extends Object {
 
     drawCell(canvasContext, x, y, color) {
         // Draw with canva
+        if (color != 0) color = "blue";
+        else color = "black";
         canvasContext.fillStyle = color;
         canvasContext.fillRect(x*this.#cellSize, y*this.#cellSize, this.#cellSize, this.#cellSize);
 
@@ -42,7 +44,7 @@ export class TetrisView extends Object {
     }
 
     drawNextPieceGrid(grid){
-        this.drawNextPieceGrid(this.#canvasNextPieceContext, grid);
+        this.drawGrid(this.#canvasNextPieceContext, grid);
     }
 
     changeScore(newScore){

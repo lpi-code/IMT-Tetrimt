@@ -13,6 +13,9 @@ export class TetrisController extends Object {
         this.#mainModel = new TetrisModel();
         this.#mainView = new TetrisView();
 
+        this.#mainView.drawBaseGrid(this.#mainModel.getShowableGrid());
+        this.#mainView.drawNextPieceGrid(this.#mainModel.getNextPieceGrid());
+
         this.startGame();
         this.enableMusic();
     }
@@ -56,6 +59,8 @@ export class TetrisController extends Object {
             this.#userLaunchGame = true;
             this.detectArrowKeyInput();
             this.reset();
+            this.refreshMainGrid();
+            this.refreshSmallGrid();
         });
         
     }
@@ -80,11 +85,11 @@ export class TetrisController extends Object {
     }
 
     refreshMainGrid(){
-        this.#mainView.drawGrid(this.#mainModel.getShowableGrid());
+        this.#mainView.drawBaseGrid(this.#mainModel.getShowableGrid());
     }
 
     refreshSmallGrid(){
-        this.#mainView.drawGrid(this.#mainModel.getNextPieceGrid());
+        this.#mainView.drawNextPieceGrid(this.#mainModel.getNextPieceGrid());
     }
 
     updateScore(){

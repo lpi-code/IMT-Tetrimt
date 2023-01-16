@@ -30,9 +30,11 @@ export class TetrisModel extends Object {
     //Initial load of the Tetris Model
     loadComponents() {
         this.loadMainGrid();
+        this.loadSmallGrid();
+        this.loadScore();
+
         this.#currentTetrominos = this.getRandomTetronimos();
         this.#nextTetrominos = this.getRandomTetronimos();
-        this.loadScore();
     }
 
     //Executed when the current tetrominos has reached the "ground" 
@@ -156,8 +158,7 @@ export class TetrisModel extends Object {
         // Return a new random tetronimos
         let tetronimos = [TetrominoI, TetrominoSquare, TetrominoT, TetrominoL, TetrominoJ, TetrominoS, TetrominoZ];
         let rand = Math.floor(Math.random() * tetronimos.length);
-        // Center the tetronimos
-        let x = Math.floor(GRID_WIDTH / 2) - 1;
+        let x = 0;
         let y = 0;
         return new tetronimos[rand](x, y);
     }
@@ -207,5 +208,7 @@ export class TetrisModel extends Object {
     }
 
     getScore(){ return this.#score;}
+    getMainGrid(){ return this.#mainGrid;}
+    getSmallGrid(){ return this.#smallGrid;}
     
 }   
