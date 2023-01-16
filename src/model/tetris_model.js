@@ -165,19 +165,22 @@ export class TetrisModel extends Object {
 
     getShowableGrid(){
         // Return the grid with the current tetrominos
-        let grid = this.#mainGrid;
         const width = this.#currentTetrominos.repArray.length;
         const height = this.#currentTetrominos.repArray[0].length;
-
-        //In order to center horizontally
-        const xGap = Math.round((GRID_WIDTH - width)/2);
-
-        for (let i = 0; i < width; i++) {
-            for (let j = 0; j < height; j++) {
-              if (this.#currentTetrominos.repArray[i+this.#currentTetrominos.x][j+this.#currentTetrominos.y] != 0)
-                grid[i+this.#currentTetrominos.x + xGap][j + this.#currentTetrominos.y] = this.#currentTetrominos.repArray[i][j];
-            }
-        } 
+        let grid = this.#mainGrid;
+        for (
+                let i = this.#currentTetrominos.x; 
+                i < width + this.#currentTetrominos.x;
+                i++) {
+            for (
+                    let j = this.#currentTetrominos.y; 
+                    j < height + this.#currentTetrominos.y;
+                    j++) {
+                if (this.#currentTetrominos.repArray[i-this.#currentTetrominos.x][j-this.#currentTetrominos.y] != 0)
+                    grid[i][j] = this.#currentTetrominos.repArray[i-this.#currentTetrominos.x][j-this.#currentTetrominos.y];
+                    }
+                }
+       
         return grid;
     }
 
