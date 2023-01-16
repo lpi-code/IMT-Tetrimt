@@ -196,7 +196,23 @@ export class TetrisModel extends Object {
         // Return the samll grid with the next tetrominos
         let grid = this.#smallGrid;
         if (!this.#nextTetrominos) return grid;
-        return this.#nextTetrominos.repArray;
+        const width = this.#nextTetrominos.repArray.length;
+        const height = this.#nextTetrominos.repArray[0].length;
+        const xGap = Math.round((SMALL_GRID_SIZE - width)/2);
+        const yGap = Math.round((SMALL_GRID_SIZE - height - 1)/2);
+        for (
+            let i = this.#nextTetrominos.x; 
+            i < width + this.#nextTetrominos.x;
+            i++) {
+                for (
+                    let j = this.#nextTetrominos.y; 
+                    j < height + this.#nextTetrominos.y;
+                    j++) {
+                        if (this.#nextTetrominos.repArray[i-this.#nextTetrominos.x][j-this.#nextTetrominos.y] != 0)
+                        grid[i + xGap][j + yGap] = this.#nextTetrominos.color;
+                    }
+                }
+        return grid;
     }
 
     getScore(){ return this.#score;}
