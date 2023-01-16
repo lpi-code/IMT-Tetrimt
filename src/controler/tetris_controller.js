@@ -13,8 +13,8 @@ export class TetrisController extends Object {
         this.#mainModel = new TetrisModel();
         this.#mainView = new TetrisView();
 
-        this.#mainView.drawBaseGrid(this.#mainModel.getShowableGrid());
-        this.#mainView.drawNextPieceGrid(this.#mainModel.getNextPieceGrid());
+        this.#mainView.drawBaseGrid(this.#mainModel.getMainGrid());
+        this.#mainView.drawNextPieceGrid(this.#mainModel.getSmallGrid());
 
         this.startGame();
         this.enableMusic();
@@ -29,18 +29,22 @@ export class TetrisController extends Object {
             switch(ev.key){
                 case "ArrowLeft":
                     this.#mainModel.moveLeft();
+                    this.refreshMainGrid();
                     console.log("Left Key is pressed, this should activate move the piece to the left (-1 in x)");
                     break;
                 case "ArrowUp":
                     this.#mainModel.rotateClockwise();
+                    this.refreshMainGrid();
                     console.log("Up Key is pressed, this should activate the rotation");
                     break;
                 case "ArrowRight":
                     this.#mainModel.moveRight();
+                    this.refreshMainGrid();
                     console.log("Right Key is pressed, this should activate move the piece to the right (+1 in x)");
                     break;
                 case "ArrowDown":
                     this.#mainModel.falafel();
+                    this.refreshMainGrid();
                     console.log("Down Key is pressed, this should accelerate the fall of the tetrominos");
                     break;
                 default:

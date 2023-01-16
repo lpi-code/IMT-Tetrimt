@@ -23,7 +23,6 @@ button
 }
 
 
-
 section > h1
 {
     width: 100%;
@@ -33,7 +32,8 @@ section > h1
 #game
 {
     display: flex;
-    width: 100%;
+    width: 65%;
+    margin: 0 auto;
 }
 
 .column

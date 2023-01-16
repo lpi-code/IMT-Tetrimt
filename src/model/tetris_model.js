@@ -1,5 +1,5 @@
 
-import {GRID_WIDTH, GRID_HEIGHT, SMALL_GRID_SIZE} from './settings.js';
+import {GRID_WIDTH, GRID_HEIGHT, SMALL_GRID_SIZE, CELL_SIZE} from './settings.js';
 import {
     TetrominoI,
     TetrominoSquare,
@@ -169,10 +169,13 @@ export class TetrisModel extends Object {
         const width = this.#currentTetrominos.repArray.length;
         const height = this.#currentTetrominos.repArray[0].length;
 
+        //In order to center horizontally
+        const xGap = Math.round((GRID_WIDTH - width)/2);
+
         for (let i = 0; i < width; i++) {
             for (let j = 0; j < height; j++) {
               if (this.#currentTetrominos.repArray[i+this.#currentTetrominos.x][j+this.#currentTetrominos.y] != 0)
-                grid[i+this.#currentTetrominos.x][j + this.#currentTetrominos.y] = this.#currentTetrominos.repArray[i][j];
+                grid[i+this.#currentTetrominos.x + xGap][j + this.#currentTetrominos.y] = this.#currentTetrominos.repArray[i][j];
             }
         } 
         return grid;
@@ -183,25 +186,15 @@ export class TetrisModel extends Object {
         let grid = this.#smallGrid;
         const width = this.#nextTetrominos.repArray.length;
         const height = this.#nextTetrominos.repArray[0].length;
-        const gap = 0;
 
-        //In order to try to horizontally center
-        switch(width)
-        {
-            case 1 || 2:
-                gap = 2;
-                break;
-            case 3:
-                gap = 1;
-                break;
-            default:
-                break;
-        }
+        //In order to center
+        const xGap = Math.round((SMALL_GRID_SIZE - width)/2);
+        const yGap = Math.round((SMALL_GRID_SIZE - height - 1)/2);
 
         for (let i = 0; i < width; i++) {
             for (let j = 0; j < height; j++) {
               if (this.#nextTetrominos.repArray[i+this.#nextTetrominos.x][j+this.#nextTetrominos.y] != 0)
-                grid[i+this.#nextTetrominos.x + gap][j + this.#nextTetrominos.y] = this.#nextTetrominos.repArray[i][j];
+                grid[i+this.#nextTetrominos.x + xGap][j + this.#nextTetrominos.y + yGap] = this.#nextTetrominos.repArray[i][j];
             }
         } 
         return grid;

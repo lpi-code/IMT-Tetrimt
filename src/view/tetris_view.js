@@ -51,4 +51,8 @@ export class TetrisView extends Object {
         document.querySelector("#score").textContent = newScore;
     }
 
+    clearBaseGrid(){
+        this.#canvasTetrisContext.clearRect(0,0,0,0);
+    }
+
 }
