@@ -33,7 +33,7 @@ export class TetrisController extends Object {
                     console.log("Up Key is pressed, this should activate the rotation");
                     break;
                 case "ArrowRight":
-                    this.#mainModel.moveLeft();
+                    this.#mainModel.moveRight();
                     console.log("Right Key is pressed, this should activate move the piece to the right (+1 in x)");
                     break;
                 case "ArrowDown":
@@ -79,8 +79,16 @@ export class TetrisController extends Object {
         });
     }
 
-    refreshGrid(){
+    refreshMainGrid(){
         this.#mainView.drawGrid(this.#mainModel.getShowableGrid());
+    }
+
+    refreshSmallGrid(){
+        this.#mainView.drawGrid(this.#mainModel.getNextPieceGrid());
+    }
+
+    updateScore(){
+        this.#mainView.changeScore(this.#mainModel.getScore());
     }
 
     

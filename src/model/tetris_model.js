@@ -1,5 +1,5 @@
 
-import {GRID_WIDTH, GRID_HEIGHT} from './settings.js';
+import {GRID_WIDTH, GRID_HEIGHT, SMALL_GRID_SIZE} from './settings.js';
 import {
     TetrominoI,
     TetrominoSquare,
@@ -15,6 +15,7 @@ import {
 export class TetrisModel extends Object {
 
     #mainGrid;
+    #smallGrid;
     #nextTetrominos;
     #currentTetrominos;
     #score;
@@ -79,12 +80,6 @@ export class TetrisModel extends Object {
         } 
     }
 
-    //When a horizontal line is completed by the player 
-    updateScore(points)
-    {
-        this.#score += points;
-    }
-
     loadMainGrid()
     {
         this.#mainGrid = new Array();
@@ -92,6 +87,17 @@ export class TetrisModel extends Object {
             for (let j = 0; j < GRID_HEIGHT; j++) {
               if (!this.#mainGrid[i]) this.#mainGrid[i] = new Array(); 
               this.#mainGrid[i][j] = 0;
+            }
+        } 
+    }
+
+    loadSmallGrid()
+    {
+        this.#smallGrid = new Array();
+        for (let i = 0; i < SMALL_GRID_SIZE; i++) {
+            for (let j = 0; j < SMALL_GRID_SIZE; j++) {
+              if (!this.#smallGrid[i]) this.#smallGrid[i] = new Array(); 
+              this.#smallGrid[i][j] = 0;
             }
         } 
     }
@@ -142,6 +148,10 @@ export class TetrisModel extends Object {
         this.#currentTetrominos.rotateClockwise(this.#mainGrid);
     }
 
+    falafel(){
+        this.#currentTetrominos.falafel(this.#mainGrid);
+    }
+
     getRandomTetronimos() {
         // Return a new random tetronimos
         let tetronimos = [TetrominoI, TetrominoSquare, TetrominoT, TetrominoL, TetrominoJ, TetrominoS, TetrominoZ];
@@ -166,6 +176,36 @@ export class TetrisModel extends Object {
         } 
         return grid;
     }
-    
 
+    getNextPieceGrid(){
+        // Return the samll grid with the next tetrominos
+        let grid = this.#smallGrid;
+        const width = this.#nextTetrominos.repArray.length;
+        const height = this.#nextTetrominos.repArray[0].length;
+        const gap = 0;
+
+        //In order to try to horizontally center
+        switch(width)
+        {
+            case 1 || 2:
+                gap = 2;
+                break;
+            case 3:
+                gap = 1;
+                break;
+            default:
+                break;
+        }
+
+        for (let i = 0; i < width; i++) {
+            for (let j = 0; j < height; j++) {
+              if (this.#nextTetrominos.repArray[i+this.#nextTetrominos.x][j+this.#nextTetrominos.y] != 0)
+                grid[i+this.#nextTetrominos.x + gap][j + this.#nextTetrominos.y] = this.#nextTetrominos.repArray[i][j];
+            }
+        } 
+        return grid;
+    }
+
+    getScore(){ return this.#score;}
+    
 }   

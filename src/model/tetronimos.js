@@ -1,5 +1,5 @@
 // This file contains data structure of game element
-import {CELL_SIZE} from './settings.js';
+import {CELL_SIZE, GRID_WIDTH, GRID_HEIGHT} from './settings.js';
 
 class Tetronimos{
     constructor(array = [], color = 'green', x = 0, y = 0) {
@@ -58,14 +58,14 @@ class Tetronimos{
         }
         for (let i = 0; i < this.repArray.length; i++) {
             for (let j = 0; j < this.repArray[i].length; j++) {
-                // Collision check
-                if (this.repArray[i][j] === 1 && grid[newX + j][newY + i] === 1) {
-                    throw new Error('Movement not possible : collision');
-                }
-
                 // Out of bound check
                 if (newX + j < 0 || newX + j >= GRID_WIDTH || newY + i < 0 || newY + i >= GRID_HEIGHT) {
                     throw new Error('Movement not possible : out of bound');
+                }
+                
+                // Collision check
+                if (this.repArray[i][j] === 1 && grid[newX + i][newY + j] === 1) {
+                    throw new Error('Movement not possible : collision');
                 }
             }
         }
@@ -81,9 +81,8 @@ class Tetronimos{
     falafel(grid) {
         // Fall the tetronimos to the bottom
         // Raise error if movement is not possible
-        let newY = this.y;
         while (this.isMoveDownPossible(grid)) {
-            newY += 1;
+            this.y++;
         }
     }
 
@@ -91,8 +90,12 @@ class Tetronimos{
     rotateClockwise(grid, nbRot = 1) {
         // Rotate 90 clockwise
         // Raise error if rotation is not possible
+
+        //Temporary until the bug of infinite loop is resolved
+        return;
+        let newArray;
         for (let i = 0; i < nbRot; i++) {
-            newArray = this.repArray[0].map((val, index) => this.repArray.map(row => row[index]).reverse());
+             newArray = this.repArray[0].map((val, index) => this.repArray.map(row => row[index]).reverse());
         }
         for (let i = 0; i < newArray.length; i++) {
             for (let j = 0; j < newArray[i].length; j++) {

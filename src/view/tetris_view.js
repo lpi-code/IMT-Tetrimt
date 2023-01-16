@@ -6,10 +6,11 @@ export class TetrisView extends Object {
     #canvasTetrisContext;
     #canvasNextPieceContext;
     #cellSize = CELL_SIZE;
+
     constructor() {
         super();
         this.#canvasTetrisContext = document
-            .querySelector("#tetris-canvas")
+            .querySelector("#tetris-grid")
             .getContext("2d");
 
         this.#canvasNextPieceContext = document
@@ -38,6 +39,14 @@ export class TetrisView extends Object {
 
     drawBaseGrid(grid){
         this.drawGrid(this.#canvasTetrisContext, grid);
+    }
+
+    drawNextPieceGrid(grid){
+        this.drawNextPieceGrid(this.#canvasNextPieceContext, grid);
+    }
+
+    changeScore(newScore){
+        document.querySelector("#score").textContent = newScore;
     }
 
 }
