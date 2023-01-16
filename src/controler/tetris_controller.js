@@ -40,8 +40,10 @@ export class TetrisController extends Object {
                     this.#mainModel.moveRight();
                     break;
                 case "ArrowDown":
-                    this.#mainModel.falafel();
+                    this.#mainModel.fall();
                     break;
+                case " ":
+                    this.#mainModel.falafel();
                 default:
                     break;
             }

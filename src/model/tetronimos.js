@@ -32,14 +32,17 @@ class Tetronimos{
 
     isMoveDownPossible(grid) {
         // Check if the tetronimos can fall
+        if (!((this.x + this.repArray.length) < GRID_HEIGHT))
+            return false;
         for (let i = 0; i < this.repArray.length; i++) {
             for (let j = 0; j < this.repArray[i].length; j++) {
-                if (this.repArray[i][j] === 1 && grid[this.x + j][this.y + i + 1] != 0) {
+                if (this.repArray[i][j] == 1 && grid[this.x + i + 1][this.y + j] != 0) {
                     return false;
                 }
             }
         }
         return true;
+        
     }
 
     move(grid, direction) {
@@ -65,7 +68,7 @@ class Tetronimos{
                 }
                 
                 // Collision check
-                if (this.repArray[i][j] == 1 && grid[newX + i][newY + j] == 1) {
+                if (this.repArray[i][j] == 1 && grid[newX + i][newY + j] != 0) {
                     throw new Error('Movement not possible : collision');
                 }
             }
@@ -83,7 +86,7 @@ class Tetronimos{
         // Fall the tetronimos to the bottom
         // Raise error if movement is not possible
         while (this.isMoveDownPossible(grid)) {
-            this.y++;
+            this.move(grid, 'down')
         }
     }
 

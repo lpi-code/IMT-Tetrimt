@@ -20,6 +20,7 @@ export class TetrisModel extends Object {
     #currentTetrominos;
     #score;
     #gridCallback;
+    #fallDaemon;
 
     constructor(gridCallback) {
         super();
@@ -40,6 +41,10 @@ export class TetrisModel extends Object {
         this.init();
         this.#currentTetrominos = this.getRandomTetronimos();
         this.#nextTetrominos = this.getRandomTetronimos();
+        this.#gridCallback();
+        // start fall daemon
+        let fallCallback = () => this.fall();
+        this.#fallDaemon = setInterval(fallCallback, 1000);
     }
 
     resetGame(){
@@ -54,10 +59,11 @@ export class TetrisModel extends Object {
     //Executed when the current tetrominos has reached the "ground" 
     hitTheFloor()
     {
+        console.log("hit the floor!");
         this.addTetrominosInGrid(); //Add the tetrominos in the main grid
         this.loadNextTetrominos();
-        completeLines = [];
-        scoreMultiplier = 1;
+        let completeLines = [];
+        let scoreMultiplier = 1;
         for (let i = 0; i < GRID_HEIGHT; i++) {
             if (this.isLineCompleted(i)){
                 this.deleteLine(i);
@@ -73,8 +79,9 @@ export class TetrisModel extends Object {
 
     fall(){
         // move down once
-        this.#currentTetrominos.fall();
+        this.#currentTetrominos.move(this.#mainGrid, "down");
         if (!this.#currentTetrominos.isMoveDownPossible(this.#mainGrid)){
+            console.log("move down not possible anymore");
             this.hitTheFloor();
         }
         this.#gridCallback();
@@ -86,15 +93,7 @@ export class TetrisModel extends Object {
     addTetrominosInGrid()
     {
         // Make the tetrominos appear in grid local to the model
-        const width = this.#currentTetrominos.repArray.length;
-        const height = this.#currentTetrominos.repArray[0].length;
-
-        for (let i = 0; i < width; i++) {
-            for (let j = 0; j < height; j++) {
-              if (this.#currentTetrominos.repArray)
-                this.#mainGrid[i+this.#currentTetrominos.x][j + this.#currentTetrominos.y] = cell;
-            }
-        } 
+        this.#mainGrid = this.getShowableGrid();
         this.#gridCallback();
     }
 
@@ -171,7 +170,12 @@ export class TetrisModel extends Object {
     }
 
     falafel(){
+        // Move the tetrominos to the bottom
+        // Fall fell fallen
         this.#currentTetrominos.falafel(this.#mainGrid);
+        if (!this.#currentTetrominos.isMoveDownPossible(this.#mainGrid)){
+            this.hitTheFloor();
+        }
         this.#gridCallback();
     }
 
