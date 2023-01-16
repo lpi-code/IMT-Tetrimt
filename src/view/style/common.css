@@ -6,20 +6,28 @@
 
 section
 {
-    background-color: lightgray;
-    padding: 2em;
+    background: linear-gradient(to right, rgb(102, 125, 182), rgb(0, 130, 200), rgb(0, 130, 200), rgb(102, 125, 182));
+    padding: 1em;
     border-radius: 1% / 1%;
-    width: min(80vh, 100em);
+    width: min(70vh, 80em);
     display: flex;
     flex-direction: column;
-    margin: auto;
+    margin: 1em auto;
     aspect-ratio: 1;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.12),0px 6px 32px rgba(0,0,0,0.16);
+}
+
+#button-row{
+    display: flex;
 }
 
 button
 {
-    width: 8em;
-    margin: 1em auto;
+    width: fit-content;
+    margin: 0.5em auto;
+    font-size: xx-large;
+    padding: 0.2em;
+    border-radius: 50%;
 }
 
 audio{
@@ -27,16 +35,17 @@ audio{
 }
 
 
-section > h1
+section > h1, h2
 {
     width: 100%;
     text-align: center;
+    color: white;
 }
 
 #game
 {
     display: flex;
-    width: 65%;
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -63,7 +72,7 @@ section > h1
     border: solid 0.1em darkgray;
     border-radius: 1%;
     width: 40%;
-    margin: 0 auto;
+    margin: 1em auto;
 }
 
 #score
@@ -72,5 +81,5 @@ section > h1
 }
 
 html{
-    background-image: url("https://images3.alphacoders.com/716/716428.png");
+    background-image: url("https://wallpapers.com/images/file/blue-and-white-tetris-abstract-pattern-bb5dv16ewxsb8bgk.jpg");
 }
