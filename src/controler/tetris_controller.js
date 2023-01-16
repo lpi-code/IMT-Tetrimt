@@ -88,6 +88,7 @@ export class TetrisController extends Object {
         document.querySelector("#reset").addEventListener("click", (e) => {
             if (this.#userLaunchGame == false) return;
             this.#mainModel.resetGame();
+            this.drawGrids();
             this.#userLaunchGame = false;
             console.log("reset !");
         });

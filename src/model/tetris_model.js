@@ -39,6 +39,8 @@ export class TetrisModel extends Object {
     resetGame(){
         this.#currentTetrominos = null;
         this.#nextTetrominos = null;
+        this.initMainGrid();
+        this.initSmallGrid();
         this.#score = 0;
     }
 
@@ -171,6 +173,7 @@ export class TetrisModel extends Object {
     getShowableGrid(){
         // Return the grid with the current tetrominos
         let grid = this.#mainGrid;
+        console.log(this.#mainGrid)
         if (!this.#currentTetrominos) return grid;
         const width = this.#currentTetrominos.repArray.length;
         const height = this.#currentTetrominos.repArray[0].length;
