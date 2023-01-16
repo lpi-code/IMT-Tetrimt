@@ -59,14 +59,12 @@ class Tetronimos{
         for (let i = 0; i < this.repArray.length; i++) {
             for (let j = 0; j < this.repArray[i].length; j++) {
                 // Out of bound check
-                if (newX + j < 0 || newX + j >= GRID_WIDTH || newY + i < 0 || newY + i >= GRID_HEIGHT) {
-                    console.log(newX, newY);
+                if (newX + j < 0 || newY + j >= GRID_WIDTH || newX + i < 0 || newX + i >= GRID_HEIGHT) {
                     throw new Error('Movement not possible : out of bound');
                 }
                 
                 // Collision check
                 if (this.repArray[i][j] == 1 && grid[newX + i][newY + j] == 1) {
-                    console.log(grid);
                     throw new Error('Movement not possible : collision');
                 }
             }

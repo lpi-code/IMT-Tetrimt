@@ -172,7 +172,7 @@ export class TetrisModel extends Object {
 
     getShowableGrid(){
         // Return the grid with the current tetrominos
-        let grid = this.#mainGrid;
+        let grid = JSON.parse(JSON.stringify(this.#mainGrid)); // Deep copy of the grid
         console.log(this.#mainGrid)
         if (!this.#currentTetrominos) return grid;
         const width = this.#currentTetrominos.repArray.length;
@@ -189,7 +189,6 @@ export class TetrisModel extends Object {
                         grid[i][j] = this.#currentTetrominos.color;
                     }
                 }
-        console.log(grid);
         return grid;
     }
 

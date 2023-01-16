@@ -34,22 +34,18 @@ export class TetrisController extends Object {
                 case "ArrowLeft":
                     this.#mainModel.moveLeft();
                     this.drawGrids();
-                    console.log("Left Key is pressed, this should activate move the piece to the left (-1 in x)");
                     break;
                 case "ArrowUp":
                     this.#mainModel.rotateClockwise();
                     this.drawGrids();
-                    console.log("Up Key is pressed, this should activate the rotation");
                     break;
                 case "ArrowRight":
                     this.#mainModel.moveRight();
                     this.drawGrids();
-                    console.log("Right Key is pressed, this should activate move the piece to the right (+1 in x)");
                     break;
                 case "ArrowDown":
                     this.drawGrids();
                     this.#mainModel.falafel();
-                    console.log("Down Key is pressed, this should accelerate the fall of the tetrominos");
                     break;
                 default:
                     break;
@@ -63,7 +59,6 @@ export class TetrisController extends Object {
     {
         document.querySelector("#start").addEventListener("click", (e) => {
             if (this.#userLaunchGame == true) return;
-            console.log("Start !");
             this.#userLaunchGame = true;
             this.detectArrowKeyInput();
             this.reset();
@@ -78,11 +73,9 @@ export class TetrisController extends Object {
         document.querySelector("#manage-sound").addEventListener("click", (e) => {
             this.#musicEnabled = ! this.#musicEnabled;
             if(this.#musicEnabled){
-                console.log("Music enable !");
                 document.querySelector("#audio").play();
             }
             else {
-                console.log("Music disable =(")
                 document.querySelector("#audio").pause();
             }
         });
@@ -96,7 +89,6 @@ export class TetrisController extends Object {
             this.#mainModel.resetGame();
             this.drawGrids();
             this.#userLaunchGame = false;
-            console.log("reset !");
         });
     }
 
