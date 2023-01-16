@@ -23,23 +23,23 @@ export class TetrisModel extends Object {
 
     constructor() {
         super();
-        this.loadComponents();
+        this.initMainGrid();
+        this.initSmallGrid();
     }
 
 
     //Initial load of the Tetris Model
-    loadComponents() {
-        this.loadMainGrid();
-        this.loadSmallGrid();
-        this.loadScore();
-
+    initGame(){
+        this.initMainGrid();
+        this.initSmallGrid();
         this.#currentTetrominos = this.getRandomTetronimos();
         this.#nextTetrominos = this.getRandomTetronimos();
     }
 
-    resetComponents()
-    {
-       this.loadComponents();
+    resetGame(){
+        this.#currentTetrominos = null;
+        this.#nextTetrominos = null;
+        this.#score = 0;
     }
 
     //Executed when the current tetrominos has reached the "ground" 
@@ -87,18 +87,18 @@ export class TetrisModel extends Object {
         } 
     }
 
-    loadMainGrid()
+    initMainGrid()
     {
         this.#mainGrid = new Array();
-        for (let i = 0; i < GRID_WIDTH; i++) {
-            for (let j = 0; j < GRID_HEIGHT; j++) {
+        for (let i = 0; i < GRID_HEIGHT; i++) {
+            for (let j = 0; j < GRID_WIDTH; j++) {
               if (!this.#mainGrid[i]) this.#mainGrid[i] = new Array(); 
               this.#mainGrid[i][j] = 0;
             }
         } 
     }
 
-    loadSmallGrid()
+    initSmallGrid()
     {
         this.#smallGrid = new Array();
         for (let i = 0; i < SMALL_GRID_SIZE; i++) {
@@ -115,7 +115,7 @@ export class TetrisModel extends Object {
         this.#nextTetrominos = this.getRandomTetronimos();
     }
 
-    loadScore()
+    initScore()
     {
         this.#score = 0;
     }
@@ -170,46 +170,33 @@ export class TetrisModel extends Object {
 
     getShowableGrid(){
         // Return the grid with the current tetrominos
+        let grid = this.#mainGrid;
+        if (!this.#currentTetrominos) return grid;
         const width = this.#currentTetrominos.repArray.length;
         const height = this.#currentTetrominos.repArray[0].length;
-        let grid = this.#mainGrid;
         for (
-                let i = this.#currentTetrominos.x; 
-                i < width + this.#currentTetrominos.x;
-                i++) {
-            for (
+            let i = this.#currentTetrominos.x; 
+            i < width + this.#currentTetrominos.x;
+            i++) {
+                for (
                     let j = this.#currentTetrominos.y; 
                     j < height + this.#currentTetrominos.y;
                     j++) {
-                if (this.#currentTetrominos.repArray[i-this.#currentTetrominos.x][j-this.#currentTetrominos.y] != 0)
-                    grid[i][j] = this.#currentTetrominos.repArray[i-this.#currentTetrominos.x][j-this.#currentTetrominos.y];
+                        if (this.#currentTetrominos.repArray[i-this.#currentTetrominos.x][j-this.#currentTetrominos.y] != 0)
+                        grid[i][j] = this.#currentTetrominos.color;
                     }
                 }
-       
+        console.log(grid);
         return grid;
     }
 
     getNextPieceGrid(){
         // Return the samll grid with the next tetrominos
         let grid = this.#smallGrid;
-        const width = this.#nextTetrominos.repArray.length;
-        const height = this.#nextTetrominos.repArray[0].length;
-
-        //In order to center
-        const xGap = Math.round((SMALL_GRID_SIZE - width)/2);
-        const yGap = Math.round((SMALL_GRID_SIZE - height - 1)/2);
-
-        for (let i = 0; i < width; i++) {
-            for (let j = 0; j < height; j++) {
-              if (this.#nextTetrominos.repArray[i+this.#nextTetrominos.x][j+this.#nextTetrominos.y] != 0)
-                grid[i+this.#nextTetrominos.x + xGap][j + this.#nextTetrominos.y + yGap] = this.#nextTetrominos.repArray[i][j];
-            }
-        } 
-        return grid;
+        if (!this.#nextTetrominos) return grid;
+        return this.#nextTetrominos.repArray;
     }
 
     getScore(){ return this.#score;}
-    getMainGrid(){ return this.#mainGrid;}
-    getSmallGrid(){ return this.#smallGrid;}
     
 }   

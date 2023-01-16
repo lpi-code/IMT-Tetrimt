@@ -48,11 +48,11 @@ class Tetronimos{
         let newX = this.x;
         let newY = this.y;
         if (direction === 'left') {
-            newX -= 1;
+            newY -= 1;
         } else if (direction === 'right') {
-            newX += 1;
-        } else if (direction === 'down') {
             newY += 1;
+        } else if (direction === 'down') {
+            newX += 1;
         } else {
             throw new Error('Invalid direction');
         }
@@ -60,11 +60,13 @@ class Tetronimos{
             for (let j = 0; j < this.repArray[i].length; j++) {
                 // Out of bound check
                 if (newX + j < 0 || newX + j >= GRID_WIDTH || newY + i < 0 || newY + i >= GRID_HEIGHT) {
+                    console.log(newX, newY);
                     throw new Error('Movement not possible : out of bound');
                 }
                 
                 // Collision check
-                if (this.repArray[i][j] === 1 && grid[newX + i][newY + j] === 1) {
+                if (this.repArray[i][j] == 1 && grid[newX + i][newY + j] == 1) {
+                    console.log(grid);
                     throw new Error('Movement not possible : collision');
                 }
             }
