@@ -1,6 +1,6 @@
 // This file contains data structure of game element
 import {CELL_SIZE, GRID_WIDTH, GRID_HEIGHT} from './settings.js';
-
+import {isTetroPosValid} from './misc.js';
 class Tetronimos{
     constructor(array = [], color = 'green', x = 0, y = 0) {
         this.x = x;
@@ -59,19 +59,8 @@ class Tetronimos{
         } else {
             throw new Error('Invalid direction');
         }
-        for (let i = 0; i < this.repArray.length; i++) {
-            for (let j = 0; j < this.repArray[i].length; j++) {
-                // Out of bound check
-                console.log("newX + i : " + (newX + i) + " newY + j : " + (newY + j)); 
-                if (newX < 0 || newY + j >= GRID_WIDTH || newY < 0 || newX + i >= GRID_HEIGHT) {
-                    throw new Error('Movement not possible : out of bound');
-                }
-                
-                // Collision check
-                if (this.repArray[i][j] == 1 && grid[newX + i][newY + j] != 0) {
-                    throw new Error('Movement not possible : collision');
-                }
-            }
+        if (!isTetroPosValid(grid, newX, newY, this.repArray)) {
+            throw new Error('Movement not possible');
         }
         this.x = newX;
         this.y = newY;
@@ -98,18 +87,8 @@ class Tetronimos{
         for (let i = 0; i < nbRot; i++) {
              newArray = this.repArray[0].map((val, index) => this.repArray.map(row => row[index]).reverse());
         }
-        for (let i = 0; i < newArray.length; i++) {
-            for (let j = 0; j < newArray[i].length; j++) {
-                // Collision check
-                if (newArray[i][j] === 1 && grid[this.x + j][this.y + i] === 1) {
-                    throw new Error('Rotation not possible : collision');
-                }
-
-                // Out of bound check
-                if (this.x + j < 0 || this.x + j >= GRID_WIDTH || this.y + i < 0 || this.y + i >= GRID_HEIGHT) {
-                    throw new Error('Rotation not possible : out of bound');
-                }
-            }
+        if (!isTetroPosValid(grid, this.x, this.y, newArray)) {
+            throw new Error('Rotation not possible');
         }
         this.repArray = newArray;
     }
