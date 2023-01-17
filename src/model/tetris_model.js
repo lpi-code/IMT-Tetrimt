@@ -20,11 +20,13 @@ export class TetrisModel extends Object {
     #currentTetrominos;
     #score;
     #gridCallback;
+    #scoreCallback;
     #fallDaemon;
 
-    constructor(gridCallback) {
+    constructor(gridCallback, scoreCallback) {
         super();
         this.#gridCallback = gridCallback;
+        this.#scoreCallback = scoreCallback;
         this.initSmallGrid();
         this.initMainGrid();
     }
@@ -32,7 +34,7 @@ export class TetrisModel extends Object {
     init(){
 
         this.#gridCallback();
-        this.score = 0;
+        this.#score = 0;
     }
 
 
@@ -70,10 +72,11 @@ export class TetrisModel extends Object {
             if (this.isLineCompleted(i)){
                 this.deleteLine(i);
                 completeLines++;
-                this.score += 100*scoreMultiplier;
+                this.#score += 100*scoreMultiplier;
                 scoreMultiplier++;
             }
         }
+        this.#scoreCallback();
 
         
         // Check if a line is completed
@@ -126,11 +129,6 @@ export class TetrisModel extends Object {
         this.#currentTetrominos = this.#nextTetrominos;
         this.#currentTetrominos.center();
         this.#nextTetrominos = this.getRandomTetronimos();
-    }
-
-    initScore()
-    {
-        this.#score = 0;
     }
 
     isLineCompleted(y){
@@ -194,7 +192,6 @@ export class TetrisModel extends Object {
     getShowableGrid(){
         // Return the grid with the current tetrominos
         let grid = JSON.parse(JSON.stringify(this.#mainGrid)); // Deep copy of the grid
-        console.log(this.#mainGrid)
         if (!this.#currentTetrominos) return grid;
         const width = this.#currentTetrominos.repArray.length;
         const height = this.#currentTetrominos.repArray[0].length;
