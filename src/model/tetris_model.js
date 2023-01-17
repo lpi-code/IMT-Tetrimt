@@ -32,7 +32,6 @@ export class TetrisModel extends Object {
     }
 
     init(){
-
         this.#gridCallback();
         this.#score = 0;
     }
@@ -40,13 +39,12 @@ export class TetrisModel extends Object {
 
     //Initial load of the Tetris Model
     initGame(){
-        this.init();
         this.#currentTetrominos = this.getRandomTetronimos();
         this.#nextTetrominos = this.getRandomTetronimos();
         this.#gridCallback();
         // start fall daemon
         let fallCallback = () => this.fall();
-        this.#fallDaemon = setInterval(fallCallback, 1000);
+        this.#fallDaemon = setInterval(fallCallback, 2000);
     }
 
     resetGame(){
@@ -84,11 +82,11 @@ export class TetrisModel extends Object {
 
     fall(){
         // move down once
-        this.#currentTetrominos.move(this.#mainGrid, "down");
         if (!this.#currentTetrominos.isMoveDownPossible(this.#mainGrid)){
             console.log("move down not possible anymore");
             this.hitTheFloor();
         }
+        this.#currentTetrominos.move(this.#mainGrid, "down");
         this.#gridCallback();
     }
 

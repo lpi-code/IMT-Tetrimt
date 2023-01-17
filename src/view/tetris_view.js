@@ -56,7 +56,6 @@ export class TetrisView extends Object {
 
     changeScore(newScore){
         document.querySelector("#score").textContent = newScore;
-        console.log("Score : " + newScore);
     }
 
     clearBaseGrid(){

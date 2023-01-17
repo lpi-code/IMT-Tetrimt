@@ -13,6 +13,7 @@ export class TetrisController extends Object {
         this.#mainView = new TetrisView();
         this.#mainModel = new TetrisModel(this.drawGrids.bind(this), this.updateScore.bind(this));
 
+        this.#mainModel.init();
         this.detectArrowKeyInput();
         this.startGame();
         this.enableMusic();
@@ -49,7 +50,7 @@ export class TetrisController extends Object {
                 case " ":
                     console.log("space");
                     this.#mainModel.falafel();
-                    
+                    break;
                 default:
                     break;
             }
