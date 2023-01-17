@@ -44,6 +44,7 @@ export class TetrisView extends Object {
     }
 
     drawNextPieceGrid(grid){
+        
         this.drawGrid(this.#canvasNextPieceContext, grid);
     }
 

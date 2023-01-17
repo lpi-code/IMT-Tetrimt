@@ -214,7 +214,7 @@ export class TetrisModel extends Object {
 
     getNextPieceGrid(){
         // Return the samll grid with the next tetrominos
-        let grid = this.#smallGrid;
+        let grid = JSON.parse(JSON.stringify(this.#smallGrid)); // Deep copy of the grid
         if (!this.#nextTetrominos) return grid;
         const width = this.#nextTetrominos.repArray.length;
         const height = this.#nextTetrominos.repArray[0].length;
