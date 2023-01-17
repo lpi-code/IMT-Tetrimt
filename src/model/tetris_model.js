@@ -124,6 +124,7 @@ export class TetrisModel extends Object {
     loadNextTetrominos()
     {
         this.#currentTetrominos = this.#nextTetrominos;
+        this.#currentTetrominos.center();
         this.#nextTetrominos = this.getRandomTetronimos();
     }
 

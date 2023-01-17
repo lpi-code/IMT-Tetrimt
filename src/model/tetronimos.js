@@ -109,6 +109,12 @@ class Tetronimos{
             return true;
         }
     }
+
+    center() {
+        // place the tetronimos in the center of the grid
+        this.x = 0;
+        this.y = Math.floor((GRID_WIDTH - this.repArray[0].length) / 2);
+    }
 }   
 
 export class TetrominoI extends Tetronimos {
