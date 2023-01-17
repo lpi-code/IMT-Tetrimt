@@ -54,6 +54,8 @@ export class TetrisModel extends Object {
         this.initSmallGrid();
         this.#score = 0;
         this.#gridCallback();
+        // stop fall daemon
+        clearInterval(this.#fallDaemon);
     }
 
     //Executed when the current tetrominos has reached the "ground" 

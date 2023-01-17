@@ -13,7 +13,7 @@ export class TetrisController extends Object {
         this.#mainView = new TetrisView();
         this.#mainModel = new TetrisModel(this.drawGrids.bind(this));
 
-
+        this.detectArrowKeyInput();
         this.startGame();
         this.enableMusic();
     }
@@ -43,12 +43,15 @@ export class TetrisController extends Object {
                     this.#mainModel.fall();
                     break;
                 case " ":
+                    console.log("space");
                     this.#mainModel.falafel();
+                    
                 default:
                     break;
             }
         });
     }
+
 
     //If the user hasn't declenched the start of the game yet, start it
     //Later on, the controller will have to change the value of #userLaunchGame to false when a game is over.
@@ -57,7 +60,7 @@ export class TetrisController extends Object {
         document.querySelector("#start").addEventListener("click", (e) => {
             if (this.#userLaunchGame == true) return;
             this.#userLaunchGame = true;
-            this.detectArrowKeyInput();
+            
             this.reset();
             this.#mainModel.initGame();
         });
