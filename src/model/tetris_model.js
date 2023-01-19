@@ -21,12 +21,14 @@ export class TetrisModel extends Object {
     #score;
     #gridCallback;
     #scoreCallback;
+    #gameoverCallback;
     #fallDaemon;
 
-    constructor(gridCallback, scoreCallback) {
+    constructor(gridCallback, scoreCallback, gameoverCallback) {
         super();
         this.#gridCallback = gridCallback;
         this.#scoreCallback = scoreCallback;
+        this.#gameoverCallback = gameoverCallback;
         this.initSmallGrid();
         this.initMainGrid();
     }
@@ -44,7 +46,7 @@ export class TetrisModel extends Object {
         this.#gridCallback();
         // start fall daemon
         let fallCallback = () => this.fall();
-        this.#fallDaemon = setInterval(fallCallback, 2000);
+        this.#fallDaemon = setInterval(fallCallback, 1000);
     }
 
     resetGame(){
@@ -58,9 +60,14 @@ export class TetrisModel extends Object {
         clearInterval(this.#fallDaemon);
     }
 
+    gameOver(){
+        clearInterval(this.#fallDaemon);
+    }
+
     //Executed when the current tetrominos has reached the "ground" 
     hitTheFloor()
     {
+        if (this.#mainGrid[0][5] != 0 || this.#mainGrid[0][6] != 0 ) this.#gameoverCallback(); 
         console.log("hit the floor!");
         this.addTetrominosInGrid(); //Add the tetrominos in the main grid
         this.loadNextTetrominos();

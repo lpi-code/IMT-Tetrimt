@@ -50,7 +50,6 @@ export class TetrisView extends Object {
     }
 
     drawNextPieceGrid(grid){
-        
         this.drawGrid(this.#canvasNextPieceContext, grid);
     }
 
@@ -58,8 +57,12 @@ export class TetrisView extends Object {
         document.querySelector("#score").textContent = newScore;
     }
 
-    clearBaseGrid(){
-        this.#canvasTetrisContext.clearRect(0,0,0,0);
+    drawGameOver(){
+        console.log("GAME OVER");
+        this.#canvasTetrisContext.font = "30px Arial";
+        this.#canvasTetrisContext.fillStyle = "red";
+        this.#canvasTetrisContext.textAlign = "center";
+        this.#canvasTetrisContext.fillText("GAME OVER", GRID_WIDTH*CELL_SIZE/2, GRID_HEIGHT*CELL_SIZE/2);
     }
 
 }

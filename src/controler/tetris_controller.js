@@ -11,7 +11,7 @@ export class TetrisController extends Object {
     constructor() {
         super();
         this.#mainView = new TetrisView();
-        this.#mainModel = new TetrisModel(this.drawGrids.bind(this), this.updateScore.bind(this));
+        this.#mainModel = new TetrisModel(this.drawGrids.bind(this), this.updateScore.bind(this), this.gameOver.bind(this));
 
         this.#mainModel.init();
         this.detectArrowKeyInput();
@@ -26,6 +26,11 @@ export class TetrisController extends Object {
 
     updateScore(){
         this.#mainView.changeScore(this.#mainModel.getScore());
+    }
+
+    gameOver(){
+        this.#mainView.drawGameOver();
+        this.#mainModel.gameOver();
     }
 
     //Listen to user keyboard input on the arrow keys
