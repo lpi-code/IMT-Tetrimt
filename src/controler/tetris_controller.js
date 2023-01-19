@@ -30,7 +30,6 @@ export class TetrisController extends Object {
 
     gameOver(){
         this.#mainView.drawGameOver();
-        this.#mainModel.gameOver();
     }
 
     //Listen to user keyboard input on the arrow keys
@@ -53,7 +52,6 @@ export class TetrisController extends Object {
                     this.#mainModel.fall();
                     break;
                 case " ":
-                    console.log("space");
                     this.#mainModel.falafel();
                     break;
                 default:

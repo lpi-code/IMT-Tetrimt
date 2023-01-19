@@ -28,8 +28,10 @@ export class TetrisView extends Object {
             canvasContext.shadowBlur = 10;
             canvasContext.shadowColor = color;
             canvasContext.lineWidth = 2;
-            canvasContext.strokeRect(x * this.#cellSize, y * this.#cellSize, this.#cellSize, this.#cellSize);
-        } 
+            canvasContext.strokeRect(x * this.#cellSize, y * this.#cellSize, this.#cellSize-3, this.#cellSize-3);
+        }
+            
+        }
 
     }
 
@@ -58,11 +60,13 @@ export class TetrisView extends Object {
     }
 
     drawGameOver(){
-        console.log("GAME OVER");
+        this.#canvasTetrisContext.fillStyle = "black";
+        this.#canvasTetrisContext.fillRect(0, 0, CELL_SIZE*GRID_WIDTH, CELL_SIZE*GRID_HEIGHT);
+        this.#canvasTetrisContext.shadowBlur = 0;
         this.#canvasTetrisContext.font = "30px Arial";
         this.#canvasTetrisContext.fillStyle = "red";
         this.#canvasTetrisContext.textAlign = "center";
-        this.#canvasTetrisContext.fillText("GAME OVER", GRID_WIDTH*CELL_SIZE/2, GRID_HEIGHT*CELL_SIZE/2);
+        this.#canvasTetrisContext.fillText("GAME\nOVER", GRID_WIDTH*CELL_SIZE/2, GRID_HEIGHT*CELL_SIZE/2);
     }
 
 }

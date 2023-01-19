@@ -42,6 +42,7 @@ export class TetrisModel extends Object {
     //Initial load of the Tetris Model
     initGame(){
         this.#currentTetrominos = this.getRandomTetronimos();
+        this.#currentTetrominos.center();
         this.#nextTetrominos = this.getRandomTetronimos();
         this.#gridCallback();
         // start fall daemon
@@ -60,15 +61,21 @@ export class TetrisModel extends Object {
         clearInterval(this.#fallDaemon);
     }
 
-    gameOver(){
-        clearInterval(this.#fallDaemon);
+    checkGameOver(){
+        return this.#mainGrid[0][5] != 0 || this.#mainGrid[0][6] != 0 || this.#mainGrid[0][7] != 0;
     }
 
     //Executed when the current tetrominos has reached the "ground" 
     hitTheFloor()
     {
-        if (this.#mainGrid[0][5] != 0 || this.#mainGrid[0][6] != 0 ) this.#gameoverCallback(); 
-        console.log("hit the floor!");
+        if (this.checkGameOver()) {
+            clearInterval(this.#fallDaemon);
+            this.#currentTetrominos = null;
+            this.#nextTetrominos = null;
+            this.#gameoverCallback();
+            return;
+        }
+
         this.addTetrominosInGrid(); //Add the tetrominos in the main grid
         this.loadNextTetrominos();
         let completeLines = [];
