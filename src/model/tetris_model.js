@@ -7,7 +7,8 @@ import {
     TetrominoL,
     TetrominoJ,
     TetrominoS,
-    TetrominoZ
+    TetrominoZ,
+    FullGrid
 
 
 } from './tetronimos.js';
@@ -24,6 +25,7 @@ export class TetrisModel extends Object {
     #gameoverCallback;
     #lineClearAnimationCallback;
     #fallDaemon;
+    #currentFallTime;
 
     constructor(gridCallback, scoreCallback, gameoverCallback, lineClearAnimationCallback) {
         super();
@@ -31,6 +33,7 @@ export class TetrisModel extends Object {
         this.#scoreCallback = scoreCallback;
         this.#gameoverCallback = gameoverCallback;
         this.#lineClearAnimationCallback = lineClearAnimationCallback;
+        this.#currentFallTime = 1000;
         this.initSmallGrid();
         this.initMainGrid();
     }
@@ -50,6 +53,13 @@ export class TetrisModel extends Object {
         // start fall daemon
         let fallCallback = () => this.fall();
         this.#fallDaemon = setInterval(fallCallback, 1000);
+    }
+
+    setFallTime(time){
+        this.#currentFallTime = time;
+        clearInterval(this.#fallDaemon);
+        let fallCallback = () => this.fall();
+        this.#fallDaemon = setInterval(fallCallback, this.#currentFallTime);
     }
 
     resetGame(){
@@ -82,13 +92,18 @@ export class TetrisModel extends Object {
         this.loadNextTetrominos();
         let completeLines = [];
         let scoreMultiplier = 1;
+        let reducedFallTime = false;
         for (let i = 0; i < GRID_HEIGHT; i++) {
             if (this.isLineCompleted(i)){
+                reducedFallTime = true;
                 this.deleteLine(i);
                 completeLines++;
                 this.#score += 100*scoreMultiplier;
                 scoreMultiplier++;
             }
+        }
+        if (reducedFallTime && this.#currentFallTime > 250){
+            this.setFallTime(this.#currentFallTime - 75);
         }
         this.#scoreCallback();
 

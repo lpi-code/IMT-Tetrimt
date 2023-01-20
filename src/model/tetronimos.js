@@ -158,3 +158,9 @@ export class TetrominoZ extends Tetronimos {
         super([[1,1,0],[0,1,1]], 'red', x, y);
     }
 }
+
+export class FullGrid extends Tetronimos {
+    constructor() {
+        super(new Array(4).fill(new Array(GRID_WIDTH).fill(1)), 'red');
+    }
+}
