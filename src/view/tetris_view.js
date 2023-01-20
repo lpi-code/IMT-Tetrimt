@@ -41,7 +41,7 @@ export class TetrisView extends Object {
 
     drawGrid(canvasContext, grid){
         // Draw with canva
-        canvasContext.fillStyle = "black";
+        canvasContext.fillStyle = "#2e2e2e";
         canvasContext.fillRect(0, 0, CELL_SIZE*grid[0].length, CELL_SIZE*grid.length);
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid[i].length; j++) {
@@ -75,7 +75,7 @@ export class TetrisView extends Object {
     }
 
     drawGameOver(){
-        this.#canvasTetrisContext.fillStyle = "black";
+        this.#canvasTetrisContext.fillStyle = "#2e2e2e";
         this.#canvasTetrisContext.fillRect(0, 0, CELL_SIZE*GRID_WIDTH, CELL_SIZE*GRID_HEIGHT);
         this.#canvasTetrisContext.shadowBlur = 0;
         this.#canvasTetrisContext.font = "30px Arial";

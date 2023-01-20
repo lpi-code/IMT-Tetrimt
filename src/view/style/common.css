@@ -49,7 +49,7 @@ audio{
 
 canvas{
     border: solid var(--main-color) 0.1em;
-    border-radius: 2%;
+    border-radius: 1%;
 }
 
 section > h1, h2
