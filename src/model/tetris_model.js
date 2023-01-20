@@ -22,13 +22,15 @@ export class TetrisModel extends Object {
     #gridCallback;
     #scoreCallback;
     #gameoverCallback;
+    #lineClearAnimationCallback;
     #fallDaemon;
 
-    constructor(gridCallback, scoreCallback, gameoverCallback) {
+    constructor(gridCallback, scoreCallback, gameoverCallback, lineClearAnimationCallback) {
         super();
         this.#gridCallback = gridCallback;
         this.#scoreCallback = scoreCallback;
         this.#gameoverCallback = gameoverCallback;
+        this.#lineClearAnimationCallback = lineClearAnimationCallback;
         this.initSmallGrid();
         this.initMainGrid();
     }
@@ -97,7 +99,6 @@ export class TetrisModel extends Object {
     fall(){
         // move down once
         if (!this.#currentTetrominos.isMoveDownPossible(this.#mainGrid)){
-            console.log("move down not possible anymore");
             this.hitTheFloor();
         }
         this.#currentTetrominos.move(this.#mainGrid, "down");
@@ -150,6 +151,7 @@ export class TetrisModel extends Object {
     deleteLine(y){
         this.#mainGrid.splice(y, 1); // Delete the line
         this.#mainGrid.unshift(new Array(GRID_WIDTH).fill(0)); // Add a new line at the top
+        this.#lineClearAnimationCallback(y);
         this.#gridCallback();
     }
 
@@ -161,7 +163,8 @@ export class TetrisModel extends Object {
             )
             this.#gridCallback();
         }catch(e){
-            console.log(e);
+
+            //console.log(e);
         }
     }
 
@@ -173,7 +176,7 @@ export class TetrisModel extends Object {
             )
             this.#gridCallback();
         }catch(e){
-            console.log(e);
+            //console.log(e);
         }
     }
 

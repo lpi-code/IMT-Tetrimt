@@ -11,7 +11,11 @@ export class TetrisController extends Object {
     constructor() {
         super();
         this.#mainView = new TetrisView();
-        this.#mainModel = new TetrisModel(this.drawGrids.bind(this), this.updateScore.bind(this), this.gameOver.bind(this));
+        this.#mainModel = new TetrisModel(
+            this.drawGrids.bind(this), 
+            this.updateScore.bind(this), 
+            this.gameOver.bind(this), 
+            this.lineClearAnimation.bind(this));
 
         this.#mainModel.init();
         this.detectArrowKeyInput();
@@ -104,5 +108,9 @@ export class TetrisController extends Object {
 
     refreshSmallGrid(){
         this.#mainView.drawNextPieceGrid(this.#mainModel.getNextPieceGrid());
+    }
+
+    lineClearAnimation(line){
+        this.#mainView.startLineClearAnimation(line);
     }
 }
