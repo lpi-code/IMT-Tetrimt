@@ -24,10 +24,16 @@ section
     flex-direction: column;
     margin: 1em auto;
     aspect-ratio: 1;
-    box-shadow: 0px 0px 4px rgba(0,0,0,0.12),0px 6px 32px rgba(0,0,0,0.16);
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 1.5rem var(--main-color),
+              0 0 0.8rem var(--main-color),
+              0 0 2.4rem var(--main-color),
+              inset 0 0 1.1rem var(--main-color);
 }
 
 #button-row{
+    margin-top: 0.5em;
     display: flex;
 }
 
@@ -38,9 +44,14 @@ button
     font-size: xx-large;
     padding: 0.2em;
     background-color: transparent;
-    border: solid var(--main-color) 0.1em;
+    border: solid transparent 0.1em;
     border-radius: 50%;
-    color: var(--main-color);
+    color: white;
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 1.5rem var(--main-color),
+              0 0 0.8rem var(--main-color),
+              0 0 2.4rem var(--main-color);
 }
 
 audio{
@@ -50,6 +61,12 @@ audio{
 canvas{
     border: solid var(--main-color) 0.1em;
     border-radius: 1%;
+    box-shadow: 0 0 .2rem #fff,
+              0 0 .2rem #fff,
+              0 0 1.5rem var(--main-color),
+              0 0 0.8rem var(--main-color),
+              0 0 2.4rem var(--main-color),
+              inset 0 0 1.1rem var(--main-color);
 }
 
 section > h1, h2
@@ -59,6 +76,7 @@ section > h1, h2
     text-align: center;
     color: white;
     font-family: 'Orbitron', sans-serif;
+    
 }
 
 #game
@@ -66,6 +84,7 @@ section > h1, h2
     display: flex;
     width: 80%;
     margin: 0 auto;
+    gap: 2em;
 }
 
 .column
@@ -88,7 +107,6 @@ section > h1, h2
 #score-container
 {
     background-color: transparent;
-    border: solid var(--main-color) 0.1em;
     padding: 0.2em;
     border-radius: 10%;
     width: 40%;
