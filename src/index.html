@@ -9,6 +9,10 @@
 
         <title>TetrIMT</title>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
         <link rel="stylesheet" type="text/css" href="./view/style/common.css">
@@ -27,7 +31,6 @@
                     <canvas width="200"  height="480" id="tetris-grid"></canvas>
                     <div id="button-row">
                         <button id="start"><i class='bx bx-play'></i></button>
-                        <button id="reset"><i class='bx bx-reset' ></i></button>
                         <button id="manage-sound"><i class='bx bxs-music' ></i></button>
                     </div>
                 </div>
@@ -42,7 +45,7 @@
             
             
         </section>
-        <audio id="audio" controls>
+        <audio id="audio" controls loop>
             <source src="./view/music/tetris.mp3" type="audio/mpeg">
           </audio> 
         <footer>

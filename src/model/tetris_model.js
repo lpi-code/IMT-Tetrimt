@@ -59,6 +59,7 @@ export class TetrisModel extends Object {
         this.#gridCallback();
         // stop fall daemon
         clearInterval(this.#fallDaemon);
+        this.#scoreCallback();
     }
 
     checkGameOver(){
@@ -68,14 +69,6 @@ export class TetrisModel extends Object {
     //Executed when the current tetrominos has reached the "ground" 
     hitTheFloor()
     {
-        if (this.checkGameOver()) {
-            clearInterval(this.#fallDaemon);
-            this.#currentTetrominos = null;
-            this.#nextTetrominos = null;
-            this.#gameoverCallback();
-            return;
-        }
-
         this.addTetrominosInGrid(); //Add the tetrominos in the main grid
         this.loadNextTetrominos();
         let completeLines = [];
@@ -96,11 +89,23 @@ export class TetrisModel extends Object {
 
     fall(){
         // move down once
+        
+        if (this.checkGameOver()) {
+            console.log("Game Over");
+            clearInterval(this.#fallDaemon);
+            this.#currentTetrominos = null;
+            this.#nextTetrominos = null;
+            this.#gameoverCallback();
+            return;
+        }
+
         if (!this.#currentTetrominos.isMoveDownPossible(this.#mainGrid)){
             console.log("move down not possible anymore");
             this.hitTheFloor();
         }
         this.#currentTetrominos.move(this.#mainGrid, "down");
+
+    
         this.#gridCallback();
     }
 

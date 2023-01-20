@@ -3,12 +3,22 @@
     margin: 0;
     padding: 0;
 }
+:root
+{
+    --main-color: blue;
+
+}
+html{
+    background: linear-gradient(360deg,#383836 10%,#4a4a4a 360%);
+}
+
 
 section
 {
-    background: linear-gradient(to right, rgb(102, 125, 182), rgb(0, 130, 200), rgb(0, 130, 200), rgb(102, 125, 182));
+    background: transparent;
     padding: 1em;
     border-radius: 1% / 1%;
+    border: solid var(--main-color) 0.1em;
     width: min(70vh, 80em);
     display: flex;
     flex-direction: column;
@@ -27,19 +37,28 @@ button
     margin: 0.5em auto;
     font-size: xx-large;
     padding: 0.2em;
+    background-color: transparent;
+    border: solid var(--main-color) 0.1em;
     border-radius: 50%;
+    color: var(--main-color);
 }
 
 audio{
     display: none;
 }
 
+canvas{
+    border: solid var(--main-color) 0.1em;
+    border-radius: 2%;
+}
 
 section > h1, h2
 {
     width: 100%;
+    font-size: x-large;
     text-align: center;
     color: white;
+    font-family: 'Orbitron', sans-serif;
 }
 
 #game
@@ -68,9 +87,10 @@ section > h1, h2
 
 #score-container
 {
-    background-color: white;
-    border: solid 0.1em darkgray;
-    border-radius: 1%;
+    background-color: transparent;
+    border: solid var(--main-color) 0.1em;
+    padding: 0.2em;
+    border-radius: 10%;
     width: 40%;
     margin: 1em auto;
 }
@@ -78,8 +98,8 @@ section > h1, h2
 #score
 {
     text-align: center;
+    color:white;
+    font-size: large;
+    font-family: 'Orbitron', sans-serif;
 }
 
-html{
-    background-image: url("https://wallpapers.com/images/file/blue-and-white-tetris-abstract-pattern-bb5dv16ewxsb8bgk.jpg");
-}

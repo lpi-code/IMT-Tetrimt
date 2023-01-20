@@ -25,12 +25,10 @@ export class TetrisView extends Object {
         if (color != 0){
             canvasContext.strokeStyle = color;
             // neon effect
-            canvasContext.shadowBlur = 10;
+            canvasContext.shadowBlur = 15;
             canvasContext.shadowColor = color;
             canvasContext.lineWidth = 2;
             canvasContext.strokeRect(x * this.#cellSize, y * this.#cellSize, this.#cellSize-3, this.#cellSize-3);
-        }
-            
         }
 
     }
@@ -38,7 +36,7 @@ export class TetrisView extends Object {
     drawGrid(canvasContext, grid){
         // Draw with canva
         canvasContext.fillStyle = "black";
-        canvasContext.fillRect(0, 0, CELL_SIZE*GRID_WIDTH, CELL_SIZE*GRID_HEIGHT);
+        canvasContext.fillRect(0, 0, CELL_SIZE*grid[0].length, CELL_SIZE*grid.length);
         for (let i = 0; i < grid.length; i++) {
             for (let j = 0; j < grid[i].length; j++) {
                 // Draw the cell
@@ -66,7 +64,7 @@ export class TetrisView extends Object {
         this.#canvasTetrisContext.font = "30px Arial";
         this.#canvasTetrisContext.fillStyle = "red";
         this.#canvasTetrisContext.textAlign = "center";
-        this.#canvasTetrisContext.fillText("GAME\nOVER", GRID_WIDTH*CELL_SIZE/2, GRID_HEIGHT*CELL_SIZE/2);
+        this.#canvasTetrisContext.fillText("GAME OVER", GRID_WIDTH*CELL_SIZE/2, GRID_HEIGHT*CELL_SIZE/2);
     }
 
 }

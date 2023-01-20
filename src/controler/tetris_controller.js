@@ -15,8 +15,8 @@ export class TetrisController extends Object {
 
         this.#mainModel.init();
         this.detectArrowKeyInput();
-        this.startGame();
-        this.enableMusic();
+        document.querySelector("#manage-sound").addEventListener("click", (e) => { this.toggleMusic()});
+        document.querySelector("#start").addEventListener("click", (e) => { this.toggleGameState()});
     }
 
     drawGrids(){
@@ -32,12 +32,10 @@ export class TetrisController extends Object {
         this.#mainView.drawGameOver();
     }
 
-    //Listen to user keyboard input on the arrow keys
-    //As always, everything is subjected to change
     detectArrowKeyInput()
     {
         document.addEventListener('keydown', ev  => {
-            if (this.#userLaunchGame == false) return;
+
             switch(ev.key){
                 case "ArrowLeft":
                     this.#mainModel.moveLeft();
@@ -51,6 +49,12 @@ export class TetrisController extends Object {
                 case "ArrowDown":
                     this.#mainModel.fall();
                     break;
+                case "Enter":
+                    this.toggleGameState();
+                    break;
+                case "m":
+                    this.toggleMusic();
+                    break;    
                 case " ":
                     this.#mainModel.falafel();
                     break;
@@ -60,42 +64,28 @@ export class TetrisController extends Object {
         });
     }
 
-
-    //If the user hasn't declenched the start of the game yet, start it
-    //Later on, the controller will have to change the value of #userLaunchGame to false when a game is over.
-    startGame()
-    {
-        document.querySelector("#start").addEventListener("click", (e) => {
-            if (this.#userLaunchGame == true) return;
-            this.#userLaunchGame = true;
-            
-            this.reset();
+    toggleGameState(){
+        this.#userLaunchGame = ! this.#userLaunchGame;
+        if (this.#userLaunchGame == true){
+            document.querySelector("#start").firstChild.className = "bx bx-reset";
             this.#mainModel.initGame();
-        });
-        
-    }
-
-    enableMusic()
-    {
-        document.querySelector("#manage-sound").addEventListener("click", (e) => {
-            this.#musicEnabled = ! this.#musicEnabled;
-            if(this.#musicEnabled){
-                document.querySelector("#audio").play();
-            }
-            else {
-                document.querySelector("#audio").pause();
-            }
-        });
-        
-    }
-
-    reset()
-    {
-        document.querySelector("#reset").addEventListener("click", (e) => {
-            if (this.#userLaunchGame == false) return;
+        }
+        else{
+            document.querySelector("#start").firstChild.className = "bx bx-play";
             this.#mainModel.resetGame();
-            this.#userLaunchGame = false;
-        });
+        }
+    }
+
+    toggleMusic(){
+        this.#musicEnabled = ! this.#musicEnabled;
+        if(this.#musicEnabled){
+            document.querySelector("#audio").play();
+            document.querySelector("#manage-sound").firstChild.className = "bx bx-stop";
+        }
+        else {
+            document.querySelector("#audio").pause();
+            document.querySelector("#manage-sound").firstChild.className = "bx bxs-music";
+        }
     }
 
     refreshMainGrid(){
